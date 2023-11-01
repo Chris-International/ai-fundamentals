@@ -11,7 +11,7 @@ def show_faces(image_path, detected_faces, show_id=False):
     if detected_faces:
         # If there are faces, how many?
         num_faces = len(detected_faces)
-        prediction = ' (' + str(num_faces) + ' faces detected)'
+        prediction = f' ({num_faces} faces detected)'
         # Draw a rectangle around each detected face
         for face in detected_faces:
             r = face.face_rectangle
@@ -39,7 +39,7 @@ def show_face_attributes(image_path, detected_faces):
     if detected_faces:
         # If there are faces, how many?
         num_faces = len(detected_faces)
-        prediction = ' (' + str(num_faces) + ' faces detected)'
+        prediction = f' ({num_faces} faces detected)'
         # Draw a rectangle around each detected face
         for face in detected_faces:
             r = face.face_rectangle
@@ -50,12 +50,12 @@ def show_face_attributes(image_path, detected_faces):
             # Annotate with face attributes (only age and emotion are used in this sample)
             detected_attributes = face.face_attributes.as_dict()
             age = 'age unknown' if 'age' not in detected_attributes.keys() else int(detected_attributes['age'])
-            annotations = 'Person aged approximately {}'.format(age)
+            annotations = f'Person aged approximately {age}'
             txt_lines = 1
             if 'emotion' in detected_attributes.keys():
                 for emotion_name in detected_attributes['emotion']:
                     txt_lines += 1
-                    annotations += '\n - {}: {}'.format(emotion_name, detected_attributes['emotion'][emotion_name])
+                    annotations += f"\n - {emotion_name}: {detected_attributes['emotion'][emotion_name]}"
             plt.annotate(annotations,((r.left + r.width), (r.top + r.height + (txt_lines * 12))), backgroundcolor='white')
 
         # Plot the image
@@ -114,7 +114,7 @@ def show_recognized_faces(image_path, detected_faces, recognized_face_names):
     if detected_faces:
         # If there are faces, how many?
         num_faces = len(recognized_face_names)
-        caption = ' (' + str(num_faces) + ' faces recognized)'
+        caption = f' ({num_faces} faces recognized)'
         # Draw a rectangle around each detected face
         for face in detected_faces:
             r = face.face_rectangle

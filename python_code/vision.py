@@ -24,7 +24,7 @@ def show_image_analysis(image_path, analysis):
     fig = plt.figure(figsize=(16, 8))
     a = fig.add_subplot(1,2,1)
     img = Image.open(image_path)
-    
+
     # Get the caption
     caption_text = ''
     if (len(analysis.description.captions) == 0):
@@ -52,7 +52,7 @@ def show_image_analysis(image_path, analysis):
             bounding_box = ((r.left, r.top), (r.left + r.width, r.top + r.height))
             draw = ImageDraw.Draw(img)
             draw.rectangle(bounding_box, outline='lightgreen', width=5)
-            annotation = 'Person aged approxilately {}'.format(face.age)
+            annotation = f'Person aged approxilately {face.age}'
             plt.annotate(annotation,(r.left, r.top), backgroundcolor='lightgreen')
 
     plt.axis('off')
@@ -62,18 +62,16 @@ def show_image_analysis(image_path, analysis):
     a = fig.add_subplot(1,2,2)
 
     # Get ratings
-    ratings = 'Ratings:\n - Adult: {}\n - Racy: {}\n - Gore: {}'.format(analysis.adult.is_adult_content,
-                                                                           analysis.adult.is_racy_content,
-                                                                           analysis.adult.is_gory_content,)
+    ratings = f'Ratings:\n - Adult: {analysis.adult.is_adult_content}\n - Racy: {analysis.adult.is_racy_content}\n - Gore: {analysis.adult.is_gory_content}'
 
     # Get tags
     tags = 'Tags:'
     for tag in analysis.tags:
-        tags = tags + '\n - {}'.format(tag.name)
+        tags = f'{tags}\n - {tag.name}'
 
     # Print details
 
-    details = '{}\n\n{}'.format(ratings, tags)
+    details = f'{ratings}\n\n{tags}'
     a.text(0,0.4, details, fontsize=12)
     plt.axis('off')
     plt.show()
